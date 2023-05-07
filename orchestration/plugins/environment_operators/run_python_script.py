@@ -2,7 +2,7 @@ from airflow.models.baseoperator import BaseOperator
 from environment_operators.strategies import EnvironmentStrategyEnum, EnvironmentStrategyFactory
 
 class RunPythonScriptOperator(BaseOperator):
-    template_fields = ['strategy_args', 'script_path']
+    template_fields = ['strategy_args', 'script_path', 'script_args']
 
     def __init__(
             self,
