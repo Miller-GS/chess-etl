@@ -14,7 +14,7 @@ class EnvironmentStrategy(ABC):
         pass
 
     @abstractmethod
-    def run_python_script(self, script_path: str):
+    def run_python_script(self, script_path: str, script_args: list = None):
         pass
 
     @abstractmethod
