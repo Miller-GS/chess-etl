@@ -2,7 +2,7 @@ import subprocess
 from .env_strategy import EnvironmentStrategy
 
 class SiblingDockerEnvStrategy(EnvironmentStrategy):
-    def __init__(self, docker_file_path:str, image_name: str, container_name: str) -> None:
+    def __init__(self, container_name: str, docker_file_path:str = None, image_name: str = None) -> None:
         self.docker_file_path = docker_file_path
         self.image_name = image_name
         self.container_name = container_name

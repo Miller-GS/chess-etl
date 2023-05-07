@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from environment_operators.start_environment import StartEnvironmentOperator
+from environment_operators.stop_environment import StopEnvironmentOperator
 from environment_operators.strategies import EnvironmentStrategyEnum
 from datetime import datetime
 from twic import TWICClient
@@ -36,5 +37,13 @@ with DAG(
         python_callable=fetch_pgn_from_twic
     )
 
-    start_environment >> load_pgn
+    stop_environment = StopEnvironmentOperator(
+        task_id='stop_environment',
+        strategy=EnvironmentStrategyEnum.SIBLING_DOCKER,
+        strategy_args={
+            'container_name': f'twic-{exec_date}'
+        }
+    )
+
+    start_environment >> load_pgn >> stop_environment
     
