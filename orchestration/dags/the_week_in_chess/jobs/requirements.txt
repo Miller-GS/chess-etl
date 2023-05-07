@@ -1,1 +1,2 @@
+requests
 https://github.com/Miller-GS/the-week-in-chess-python-client/archive/main.zip
