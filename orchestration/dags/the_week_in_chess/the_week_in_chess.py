@@ -21,7 +21,10 @@ with DAG(
         strategy_args={
             'docker_file_path': os.path.join(os.path.dirname(__file__), 'jobs'),
             'container_name': f'twic-{exec_date}',
-            'image_name': 'twic'
+            'image_name': 'twic',
+            'volumes': {
+                "D:\chess-etl/pgns": "/pgns"
+            }
         }
     )
 
