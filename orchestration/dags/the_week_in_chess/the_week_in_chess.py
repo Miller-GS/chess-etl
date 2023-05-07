@@ -1,9 +1,10 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from airflow.operators.bash import BashOperator
+from environment_operators.start_environment import StartEnvironmentOperator
+from environment_operators.strategies import EnvironmentStrategyEnum
 from datetime import datetime
-
 from twic import TWICClient
+import os
 
 
 def fetch_pgn_from_twic(ds):
@@ -19,9 +20,21 @@ with DAG(
     start_date=datetime(2023, 4, 3),
     catchup=False) as dag:
 
+    exec_date = '{{ ds }}'
+    start_environment = StartEnvironmentOperator(
+        task_id='start_environment',
+        strategy=EnvironmentStrategyEnum.SIBLING_DOCKER,
+        strategy_args={
+            'docker_file_path': os.path.join(os.path.dirname(__file__), 'jobs'),
+            'container_name': f'twic-{exec_date}',
+            'image_name': 'twic'
+        }
+    )
+
     load_pgn = PythonOperator(
         task_id='load_pgn',
         python_callable=fetch_pgn_from_twic
     )
 
+    start_environment >> load_pgn
     
