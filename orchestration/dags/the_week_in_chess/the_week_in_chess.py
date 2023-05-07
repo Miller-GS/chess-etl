@@ -1,18 +1,11 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from environment_operators.start_environment import StartEnvironmentOperator
+from environment_operators.run_python_script import RunPythonScriptOperator
 from environment_operators.stop_environment import StopEnvironmentOperator
 from environment_operators.strategies import EnvironmentStrategyEnum
 from datetime import datetime
-from twic import TWICClient
 import os
-
-
-def fetch_pgn_from_twic(ds):
-    client = TWICClient()
-    pgn_content = client.download_pgn_from_date(ds)
-    with open(f'/pgns/{ds}.pgn', 'w+') as f:
-        f.write(pgn_content)
 
 
 with DAG(
@@ -32,9 +25,14 @@ with DAG(
         }
     )
 
-    load_pgn = PythonOperator(
+    load_pgn = RunPythonScriptOperator(
         task_id='load_pgn',
-        python_callable=fetch_pgn_from_twic
+        strategy=EnvironmentStrategyEnum.SIBLING_DOCKER,
+        strategy_args={
+            'container_name': f'twic-{exec_date}'
+        },
+        script_path='load_pgn_from_twic.py',
+        script_args=[exec_date]
     )
 
     stop_environment = StopEnvironmentOperator(
