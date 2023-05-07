@@ -1,7 +1,7 @@
 from airflow.models.baseoperator import BaseOperator
 from environment_operators.strategies import EnvironmentStrategyEnum, EnvironmentStrategyFactory
 
-class StartEnvironmentOperator(BaseOperator):
+class StopEnvironmentOperator(BaseOperator):
     template_fields = ['strategy_args']
 
     def __init__(self, strategy: EnvironmentStrategyEnum, strategy_args: dict, **kwargs) -> None:
@@ -13,4 +13,4 @@ class StartEnvironmentOperator(BaseOperator):
 
     def execute(self, context):
         strategy = self.factory.create(self.strategy_type, **self.strategy_args)
-        strategy.start()
+        strategy.stop()
