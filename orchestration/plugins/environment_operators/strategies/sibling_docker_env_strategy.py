@@ -27,6 +27,22 @@ class SiblingDockerEnvStrategy(EnvironmentStrategy):
         if run_process.returncode != 0:
             raise Exception(f"Failed to start container.\nstdout: {run_process.stdout},\nstderr: {run_process.stderr}")
 
+    def run_command(self, command: str):
+        run_process = subprocess.run(
+            ["docker", "exec", self.container_name, "bash", "-c", command],
+            capture_output=True
+        )
+        if run_process.returncode != 0:
+            raise Exception(f"Failed to run command.\nstdout: {run_process.stdout},\nstderr: {run_process.stderr}")
+
+    def run_python_script(self, script_path: str):
+        run_process = subprocess.run(
+            ["docker", "exec", self.container_name, "python", script_path],
+            capture_output=True
+        )
+        if run_process.returncode != 0:
+            raise Exception(f"Failed to run python script.\nstdout: {run_process.stdout},\nstderr: {run_process.stderr}")
+
     def stop(self):
         subprocess.run(["docker", "stop", self.container_name])
         subprocess.run(["docker", "rm", self.container_name])

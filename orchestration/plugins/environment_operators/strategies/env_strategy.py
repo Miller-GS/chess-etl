@@ -10,5 +10,13 @@ class EnvironmentStrategy(ABC):
         pass
 
     @abstractmethod
+    def run_command(self, command: str):
+        pass
+
+    @abstractmethod
+    def run_python_script(self, script_path: str):
+        pass
+
+    @abstractmethod
     def stop(self):
         pass
