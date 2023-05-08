@@ -37,8 +37,7 @@ There are several possible databases that work well with Data Pipelines. However
 
 # Local Execution
 
-This project was architectured in a way so that it can be easily run in the cloud or locally. To run it locally,
-you should go to orchestration/airflow-local, and copy the content from .env.example into your own .env.
+Go to orchestration/airflow-local, and copy the content from .env.example into your own .env.
 
 Then, build the image:
 
@@ -50,6 +49,13 @@ Finally, you can run the containers. Airflow will be available in port 8080.
 ```sh
 docker-compose up
 ```
+
+This project was architectured in a way so that it can be easily run in the cloud or locally. For example, every DAG
+will have tasks to "Start Environment" and "Stop Environment". In the cloud, that might mean starting a cluster, while locally it means
+starting a new Docker container to run the jobs.
+
+Note that this feature with one docker container spawning new sibling containers in the host does not work great when we add volumes on
+Windows. Therefore, if you want to try to execute the entire data pipeline on your machine, I would advise to use Mac or Linux.
 
 # License
 
