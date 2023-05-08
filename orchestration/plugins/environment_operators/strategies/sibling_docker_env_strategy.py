@@ -1,5 +1,5 @@
 import subprocess
-from .env_strategy import EnvironmentStrategy
+from environment_operators.strategies.env_strategy import EnvironmentStrategy
 
 class SiblingDockerEnvStrategy(EnvironmentStrategy):
     def __init__(
