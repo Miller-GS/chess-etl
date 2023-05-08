@@ -23,7 +23,7 @@ with DAG(
             'container_name': f'twic-{exec_date}',
             'image_name': 'twic',
             'volumes': {
-                "D:\chess-etl/pgns": "/pgns"
+                f'{os.environ["LOCAL_FILES_DIR"]}/pgns': "/local_files/pgns"
             }
         }
     )
