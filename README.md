@@ -33,7 +33,7 @@ I had never used it before, so I found this to be a great opportunity to learn.
 
 ### PostgreSQL
 
-There are several possible databases that work well with Data Pipelines. However, many of them are very closely linked with their respective cloud providers, such as Google's BigQuery and Amazon's Redshift, which comes at a cost. PostgreSQl, on the other hand, is very easy to setup and host anywhere, even locally.
+There are several possible databases that work well with Data Pipelines. However, many of them are very closely linked with their respective cloud providers, such as Google's BigQuery and Amazon's Redshift, which comes at a cost. PostgreSQL, on the other hand, is very easy to setup and host anywhere, even locally.
 
 # Local Execution
 
