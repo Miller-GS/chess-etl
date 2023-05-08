@@ -35,6 +35,22 @@ I had never used it before, so I found this to be a great opportunity to learn.
 
 There are several possible databases that work well with Data Pipelines. However, many of them are very closely linked with their respective cloud providers, such as Google's BigQuery and Amazon's Redshift, which comes at a cost. PostgreSQl, on the other hand, is very easy to setup and host anywhere, even locally.
 
+# Local Execution
+
+This project was architectured in a way so that it can be easily run in the cloud or locally. To run it locally,
+you should go to orchestration/airflow-local, and copy the content from .env.example into your own .env.
+
+Then, build the image:
+
+```sh
+docker-compose build
+```
+
+Finally, you can run the containers. Airflow will be available in port 8080.
+```sh
+docker-compose up
+```
+
 # License
 
 This project is licensed under the MIT License.
