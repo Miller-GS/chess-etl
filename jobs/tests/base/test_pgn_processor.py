@@ -1,5 +1,5 @@
 from unittest import TestCase
-from jobs.base.pgn_processor import PGNProcessor
+from base.pgn_processor import PGNProcessor
 from io import StringIO
 
 
